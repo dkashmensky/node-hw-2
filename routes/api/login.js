@@ -16,6 +16,7 @@ router.post('/login', (req, res) => {
 
   let token = jwt.sign(user, secret);
   res.json({jwt_token: token});
+  res.header()
 });
 
 module.exports = router;
