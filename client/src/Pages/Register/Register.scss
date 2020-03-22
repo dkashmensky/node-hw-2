@@ -1,0 +1,58 @@
+.Register {
+  &__form {
+    border: 1px solid lightgray;
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding:40px;
+    width: 300px;
+  }
+
+  &__fullname,
+  &__username,
+  &__password {
+    margin-bottom: 7px;
+  }
+
+  &__header {
+    display: flex;
+    font-size: 1.5rem;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__error {
+    color: red;
+    display: none;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  input {
+    padding: 5px 10px;
+  }
+
+  button {
+    padding: 5px;
+    width: 100%;
+  }
+}
+
+.block {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+
+  &__wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 400px;
+  }
+}

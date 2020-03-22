@@ -1,0 +1,17 @@
+.Notes {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+
+  &__header,
+  &__list {
+    width: 550px;
+  }
+
+  &__header {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+}

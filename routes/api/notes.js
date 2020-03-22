@@ -17,14 +17,14 @@ router.get('/notes', (req, res) => {
 
 router.post('/notes', (req, res) => {
   const user = req.user;
-  const { note_text } = req.body;
+  const { text } = req.body;
 
   const notesJson = utils.getFile(notesFilePath);
 
   const newNote = {
     id: utils.getNextId(notesJson.notes),
     user_id: user.id,
-    text: note_text,
+    text: text,
     done: false,
     timestamp: Date.now()
   };
@@ -36,31 +36,31 @@ router.post('/notes', (req, res) => {
 });
 
 router.delete('/notes', (req, res) => {
-  const { note_id } = req.body;
+  const { id } = req.body;
 
   const notesJson = utils.getFile(notesFilePath);
-  const noteIndex = notesJson.notes.findIndex(note => note.id === note_id);
+  const noteIndex = notesJson.notes.findIndex(note => note.id === id);
   if(noteIndex != -1) {
     notesJson.notes.splice(noteIndex, 1);
     utils.putFile(notesJson, notesFilePath);
-    res.status(200).json({status: `Note with ID: ${note_id} deleted successfully.`});
+    res.status(200).json({status: `Note with ID: ${id} deleted successfully.`});
   } else {
-    res.status(400).json({status: `Note with ID: ${note_id} not found.`});
+    res.status(400).json({status: `Note with ID: ${id} not found.`});
   }
 });
 
 router.put('/notes', (req, res) => {
-  const { note_id, note_text, is_done } = req.body;
+  const { id, text, done } = req.body;
 
   const notesJson = utils.getFile(notesFilePath);
-  const noteToEdit = notesJson.notes.find(note => note.id === note_id);
+  const noteToEdit = notesJson.notes.find(note => note.id === id);
   if(noteToEdit) {
-    noteToEdit.text = note_text;
-    noteToEdit.done = is_done;
+    noteToEdit.text = text;
+    noteToEdit.done = done;
     utils.putFile(notesJson, notesFilePath);
-    res.status(200).json({status: `Note with ID: ${note_id} edited successfully.`});
+    res.status(200).json({status: `Note with ID: ${id} edited successfully.`});
   } else {
-    res.status(400).json({status: `Note with ID: ${note_id} not found.`});
+    res.status(400).json({status: `Note with ID: ${id} not found.`});
   }
 });
 

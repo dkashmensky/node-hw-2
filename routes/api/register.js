@@ -23,7 +23,7 @@ router.post('/register', (req, res) => {
 
       res.status(200).json({status: 'User created successfully.'});
     } else {
-      res.status(400).json({status: 'Username already exists'});
+      res.status(409).json({status: 'Username already exists'});
     }
   } else {
     res.status(400).json({status: 'Mandatory fields are empty'});

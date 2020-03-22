@@ -1,1 +1,12 @@
 @import './reset.css';
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+body {
+  background: azure;
+  font-family: 'Montserrat', sans-serif;
+  height: 100vh;
+}
+
+textarea {
+  font-family: 'Montserrat', sans-serif;
+}

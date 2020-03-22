@@ -1,20 +1,23 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
+const utils = require('./utils');
 
-const users = require('../../db/users.json').users;
 const secret = require('../../config/auth').secret;
 
 router.post('/login', (req, res) => {
-  let { username, password } = req.body;
+  const users = utils.getFile('./db/users.json').users;
 
-  let [user] = users.filter(user => (user.username === username && user.password === password));
+  const { username, password } = req.body;
+
+  const [user] = users.filter(user => (user.username === username && user.password === password));
 
   if(!user) {
     res.status(401).json({status: 'User not found'});
+    return;
   }
 
-  let token = jwt.sign(user, secret);
+  const token = jwt.sign(user, secret);
   res.json({jwt_token: token});
   res.header()
 });

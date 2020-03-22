@@ -1,0 +1,51 @@
+.Note {
+  align-items: center;
+  display: flex;
+  margin-bottom: 10px;
+  position: relative;
+
+  &__text,
+  &__wrapper,
+  &__add {
+    margin-right: 10px;
+  }
+
+  &__text {
+    resize: none;
+    width: 400px;
+  }
+
+  &__delete {
+    cursor: pointer;
+    width: 24px;
+  }
+
+  &__delete:hover {
+    transition: 0.1s ease-out;
+    width: 28px;
+  }
+
+  &__check {
+    cursor: pointer;
+    width: 24px;
+  }
+
+  &__check:hover {
+    transition: 0.1s ease-out;
+    width: 28px;
+  }
+
+  &__add {
+    cursor: pointer;
+    width: 24px;
+  }
+
+  &__add:hover {
+    transition: 0.1s ease-out;
+    width: 28px;
+  }
+
+  &__wrapper {
+    width: 28px;
+  }
+}

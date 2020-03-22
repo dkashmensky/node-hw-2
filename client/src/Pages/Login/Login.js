@@ -4,7 +4,7 @@ import './Login.scss';
 const Login = () => {
   const logIn = ev => {
     ev.preventDefault();
-    const username = document.querySelector('.Login__login-input').value;
+    const username = document.querySelector('.Login__username-input').value;
     const password = document.querySelector('.Login__password-input').value;
     const fetchConfig = {
       method: 'POST',
@@ -66,8 +66,9 @@ const Login = () => {
     <div className="Login block">
       <div className="block__wrapper">
         <form className="Login__form">
-          <div className="Login__login">
-            <input className="Login__login-input" type="text" placeholder="Login" />
+          <header className="Login__header"><h1>Login Form</h1></header>
+          <div className="Login__username">
+            <input className="Login__username-input" type="text" placeholder="Username" />
           </div>
           <div className="Login__password">
             <input className="Login__password-input" type="password" placeholder="Password" />

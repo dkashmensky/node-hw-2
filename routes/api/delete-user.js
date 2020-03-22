@@ -15,7 +15,7 @@ router.delete('/delete-user', (req, res) => {
     if(userIndex != -1) {
       userFile.users.splice(userIndex, 1);
       utils.putFile(userFile, userFilePath);
-      res.status(400).json({status: `User ID: ${user_id} deleted successfully`});
+      res.status(200).json({status: `User ID: ${user_id} deleted successfully`});
     } else {
       res.status(400).json({status: `User ID: ${user_id} not found`});
     }
