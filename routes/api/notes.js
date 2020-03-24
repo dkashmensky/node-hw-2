@@ -1,22 +1,22 @@
 const express = require('express');
-const router = express.Router();
 const utils = require('./utils');
 
+const router = express.Router();
 const notesFilePath = './db/notes.json';
 
 router.get('/notes', (req, res) => {
-  const user = req.user;
-  const notes = utils.getFile(notesFilePath).notes;
-  
+  const { user } = req;
+  const { notes } = utils.getFile(notesFilePath);
+
   const userNotes = notes
-    .filter((note) => note.user_id === user.id)
+    .filter(note => note.user_id === user.id)
     .sort((a, b) => b.timestamp - a.timestamp);
 
   res.json(userNotes);
 });
 
 router.post('/notes', (req, res) => {
-  const user = req.user;
+  const { user } = req;
   const { text } = req.body;
 
   const notesJson = utils.getFile(notesFilePath);
@@ -24,15 +24,17 @@ router.post('/notes', (req, res) => {
   const newNote = {
     id: utils.getNextId(notesJson.notes),
     user_id: user.id,
-    text: text,
+    text,
     done: false,
-    timestamp: Date.now()
+    timestamp: Date.now(),
   };
 
   notesJson.notes.push(newNote);
   utils.putFile(notesJson, notesFilePath);
 
-  res.status(200).json({status: `Note created successfully. ID: ${newNote.id}`});
+  res.status(200).json({
+    status: `Note created successfully. ID: ${newNote.id}`,
+  });
 });
 
 router.delete('/notes', (req, res) => {
@@ -40,12 +42,16 @@ router.delete('/notes', (req, res) => {
 
   const notesJson = utils.getFile(notesFilePath);
   const noteIndex = notesJson.notes.findIndex(note => note.id === id);
-  if(noteIndex != -1) {
+  if (noteIndex !== -1) {
     notesJson.notes.splice(noteIndex, 1);
     utils.putFile(notesJson, notesFilePath);
-    res.status(200).json({status: `Note with ID: ${id} deleted successfully.`});
+    res.status(200).json({
+      status: `Note with ID: ${id} deleted successfully.`,
+    });
   } else {
-    res.status(400).json({status: `Note with ID: ${id} not found.`});
+    res.status(400).json({
+      status: `Note with ID: ${id} not found.`,
+    });
   }
 });
 
@@ -54,21 +60,25 @@ router.put('/notes', (req, res) => {
 
   const notesJson = utils.getFile(notesFilePath);
   const noteToEdit = notesJson.notes.find(note => note.id === id);
-  if(noteToEdit) {
+  if (noteToEdit) {
     noteToEdit.text = text;
     noteToEdit.done = done;
     utils.putFile(notesJson, notesFilePath);
-    res.status(200).json({status: `Note with ID: ${id} edited successfully.`});
+    res.status(200).json({
+      status: `Note with ID: ${id} edited successfully.`,
+    });
   } else {
-    res.status(400).json({status: `Note with ID: ${id} not found.`});
+    res.status(400).json({
+      status: `Note with ID: ${id} not found.`,
+    });
   }
 });
 
 router.get('/notes/total', (req, res) => {
-  const user = req.user;
-  const notes = utils.getFile(notesFilePath).notes;
-  
-  const userNotes = notes.filter((note) => note.user_id === user.id)
+  const { user } = req;
+  const { notes } = utils.getFile(notesFilePath);
+
+  const userNotes = notes.filter(note => note.user_id === user.id);
 
   res.json({ notes_count: userNotes.length });
 });

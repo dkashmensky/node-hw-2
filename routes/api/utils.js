@@ -1,11 +1,11 @@
 const fs = require('fs');
 
 module.exports.getNextId = dataArray => {
-  if(dataArray.length) {
+  if (dataArray.length) {
     const sortedArray = dataArray.sort((a, b) => b.id - a.id);
     return sortedArray[0].id + 1;
   }
-  
+
   return 1;
 };
 

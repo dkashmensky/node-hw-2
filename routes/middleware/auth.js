@@ -1,25 +1,30 @@
+/* eslint-disable dot-notation */
 const jwt = require('jsonwebtoken');
-const secret = require('../../config/auth').secret;
+// eslint-disable-next-line import/no-unresolved
+const { secret } = require('../../config/auth');
 const utils = require('../api/utils');
 
 const userFilePath = './db/users.json';
 
 module.exports = (req, res, next) => {
-  if(req.headers['authorization']) {
-    const [token_type, jwt_token] = req.headers['authorization'].split(' ');
+  if (req.headers['authorization']) {
+    const jwtToken = req.headers['authorization'].split(' ')[1];
 
-    let user = jwt.verify(jwt_token, secret);
+    const user = jwt.verify(jwtToken, secret);
     req.user = user;
 
-    const users = utils.getFile(userFilePath).users;
-    if(!users.find(item => item.id === user.id)) {
-      res.status(400).json({status: 'User does not exist'});
+    const { users } = utils.getFile(userFilePath);
+    if (!users.find(item => item.id === user.id)) {
+      res.status(400).json({
+        status: 'User does not exist',
+      });
       return;
     }
 
     next();
   } else {
-    res.status(400).json({status: 'No authorization headers'});
-    return;
+    res.status(400).json({
+      status: 'No authorization headers,',
+    });
   }
-}
+};
